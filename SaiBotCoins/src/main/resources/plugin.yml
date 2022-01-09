@@ -1,0 +1,8 @@
+name: TomEconomy
+version: '${project.version}'
+main: fr.nokane.tomeconomy.TomEconomy
+api-version: 1.18
+depend: [ Vault ]
+authors: [ Nokane_57 ]
+description: Plugin Economy
+website: https://grenkai.fr
