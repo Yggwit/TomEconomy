@@ -1,7 +1,7 @@
 package fr.nokane.tomeconomy;
 
 import fr.nokane.tomeconomy.listeners.BlockBreakListener;
-import fr.nokane.tomeconomy.listeners.EntityDeath;
+import fr.nokane.tomeconomy.listeners.EntityDeathListener;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -18,7 +18,7 @@ public final class TomEconomy extends JavaPlugin {
         // Plugin startup logic
         System.out.println(ChatColor.LIGHT_PURPLE + "Le plugin TomEconomy s'est bien demarré !");
         instance = this;
-        getServer().getPluginManager().registerEvents(new EntityDeath(), this);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
 
     }
