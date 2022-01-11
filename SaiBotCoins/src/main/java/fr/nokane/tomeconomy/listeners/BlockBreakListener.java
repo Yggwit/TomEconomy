@@ -53,7 +53,7 @@ public class BlockBreakListener implements Listener {
             CoinAttribution coinAttribution = CoinAttributionDictionnary.get(block.getType());
             if(coinAttribution != null) {
                 p.sendMessage(coinAttribution.ChatColor + "Vouz avez reçu: " + coinAttribution.Coins + " SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 1.0);
+                TomEconomy.getInstance().economy.depositPlayer(p, coinAttribution.Coins);
             }
         }
     }
