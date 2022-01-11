@@ -16,7 +16,7 @@ public final class TomEconomy extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        System.out.println(ChatColor.LIGHT_PURPLE + "Le plugin TomEconomy ses bien demarrer !");
+        System.out.println(ChatColor.LIGHT_PURPLE + "Le plugin TomEconomy s'est bien demarré !");
         instance = this;
         getServer().getPluginManager().registerEvents(new EntityDeath(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
@@ -26,7 +26,7 @@ public final class TomEconomy extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        System.out.println(ChatColor.RED + "Le Plugin TomEconomy ses bien arreter !");
+        System.out.println(ChatColor.RED + "Le Plugin TomEconomy s'est bien arrêté !");
     }
 
     public static TomEconomy getInstance() {
