@@ -1,6 +1,7 @@
 package fr.nokane.tomeconomy.listeners;
 
 import fr.nokane.tomeconomy.TomEconomy;
+import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -10,97 +11,50 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 
-public class BlockBreakListener implements Listener {
+public class CoinAttribution {
+    float Coins;
+    ChatColor ChatColor;
 
+    public CoinAttribution (float coins, ChatColor chatColor)
+    {
+        Coins = coins;
+        ChatColor = chatColor;
+    }
+}
+
+public static Map<Material, CoinAttribution> CoinAttributionDictionnary = 
+    new HashMap<Material, CoinAttribution>(){
+        { Material.COPPER_ORE,      new CoinAttribution( 1.0,    ChatColor.GREEN )        },
+        { Material.COAL_ORE,        new CoinAttribution( 1.5,    ChatColor.DARK_PURPLE )  },
+        { Material.IRON_ORE,        new CoinAttribution( 5.0,    ChatColor.BOLD )         },
+        { Material.REDSTONE_ORE,    new CoinAttribution( 5.0,    ChatColor.RED )          },
+        { Material.LAPIS_ORE,       new CoinAttribution( 5.0,    ChatColor.GREEN )        },
+        { Material.GOLD_ORE,        new CoinAttribution( 15.0,   ChatColor.GREEN )        },
+        { Material.DIAMOND_ORE,     new CoinAttribution( 50.0,   ChatColor.BLUE )         },
+        { Material.QUARTZ,          new CoinAttribution( 5.0,    ChatColor.GREEN )        },
+        { Material.NETHER_GOLD_ORE, new CoinAttribution( 5.0,    ChatColor.GREEN )        },
+        { Material.ANCIENT_DEBRIS,  new CoinAttribution( 100.0,  ChatColor.LIGHT_PURPLE ) },
+        { Material.OAK_LOG,         new CoinAttribution( 5.0,    ChatColor.GREEN )        },
+        { Material.DARK_OAK_LOG,    new CoinAttribution( 2.0,    ChatColor.GREEN )        },
+        { Material.BIRCH_LOG,       new CoinAttribution( 5.0,    ChatColor.GREEN )        },
+        { Material.JUNGLE_LOG,      new CoinAttribution( 2.0,    ChatColor.GREEN )        },
+        { Material.ACACIA_LOG,      new CoinAttribution( 7.0,    ChatColor.GREEN )        },
+        { Material.SPRUCE_LOG,      new CoinAttribution( 2.0,    ChatColor.GREEN )        } 
+    };
+
+public class BlockBreakListener implements Listener {
 
     @EventHandler
     public void OnBLockBreak(BlockBreakEvent e) {
-        Player p = e.getPlayer();
-        Block block = e.getBlock();
+        if (TomEconomy.getInstance().setupEconomy()) {
+            Player p = e.getPlayer();
+            Block block = e.getBlock();
 
-        // Minerais
-        if (block.getType() == Material.COPPER_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "vous avez recus: 1 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 1.0);
-            }
-        } else if (block.getType() == Material.COAL_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.DARK_PURPLE + "Vous avez recus: 1.50 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 1.5);
-            }
-        } else if (block.getType() == Material.IRON_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.BOLD + "vous avez recus: 5 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.REDSTONE_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.RED + "vous aves recus: 5 SaibotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p,5.0);
-            }
-        } else if (block.getType() == Material.LAPIS_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez perdu: 5 SaiBotCoins");
-                 TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.GOLD_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 15 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 15.0);
-            }
-        } else if (block.getType() == Material.DIAMOND_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.BLUE + "Vous avez recus: 50 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 50.0);
-            }
-        } else if (block.getType() == Material.QUARTZ) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 5 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.NETHER_GOLD_ORE) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 5 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.ANCIENT_DEBRIS) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.LIGHT_PURPLE + "Vous avez recus: 100 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 100.0);
-            }
-            // Bois
-        } else if (block.getType() == Material.OAK_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 5 SaiBotCoisn");
-                TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.DARK_OAK_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 2 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 2.0);
-            }
-        } else if (block.getType() == Material.BIRCH_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 5 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 5.0);
-            }
-        } else if (block.getType() == Material.JUNGLE_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 2 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 2.0);
-            }
-        } else if (block.getType() == Material.ACACIA_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 7 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 7.0);
-            }
-        } else if (block.getType() == Material.SPRUCE_LOG) {
-            if (TomEconomy.getInstance().setupEconomy()) {
-                p.sendMessage(ChatColor.GREEN + "Vous avez recus: 2 SaiBotCoins");
-                TomEconomy.getInstance().economy.depositPlayer(p, 2.0);
+            CoinAttribution coinAttribution = CoinAttributionDictionnary.get(block.getType());
+            if(coinAttribution != null) {
+                p.sendMessage(coinAttribution.ChatColor + "Vouz avez reçu: " + coinAttribution.Coins + " SaiBotCoins");
+                TomEconomy.getInstance().economy.depositPlayer(p, coinAttribution.Coins);
             }
         }
     }
 }
-
